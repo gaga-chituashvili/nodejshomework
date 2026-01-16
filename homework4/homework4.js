@@ -2,7 +2,12 @@
 
 const fs = require("fs");
 
-const readText = fs.createReadStream("input.txt", "utf-8");
+const chunkSize = 1024 * 1024;
+
+const readText = fs.createReadStream("input.txt", {
+  highWaterMark: chunkSize,
+  encoding: "utf-8",
+});
 const writeText = fs.createWriteStream("output.txt", "utf-8");
 
 readText.on("data", (chunk) => {
